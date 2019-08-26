@@ -9,35 +9,36 @@ const FunChart = ({data}) => {
   const [bars, setBars] = useState([])
 
   useEffect(() => {
-    if (!data) return {}
+    if (data) {
 
-    const xScale = d3.scaleTime()
-      .domain([
-        d3.min(data, d => d.date),
-        d3.max(data, d => d.date)
-      ])
-      .range([0, width])
+      const xScale = d3.scaleTime()
+        .domain([
+          d3.min(data, d => d.date),
+          d3.max(data, d => d.date)
+        ])
+        .range([0, width])
 
-    const yScale = d3.scaleLinear()
-      .domain([
-        d3.min(data, d => d.low),
-        d3.max(data, d => d.high)
-      ])
-      .range([height, 0])
+      const yScale = d3.scaleLinear()
+        .domain([
+          d3.min(data, d => d.low),
+          d3.max(data, d => d.high)
+        ])
+        .range([height, 0])
 
-    const colorExtent = d3.extent(data, d => d.avg).reverse()
-    const colorScale = d3.scaleSequential().domain(colorExtent).interpolator(d3.interpolateRdYlBu)
+      const colorExtent = d3.extent(data, d => d.avg).reverse()
+      const colorScale = d3.scaleSequential().domain(colorExtent).interpolator(d3.interpolateRdYlBu)
 
-    const newBars = data.map(d => {
-      return {
-        x: xScale(d.date),
-        y: yScale(d.high),
-        height: yScale(d.low) - yScale(d.high),
-        fill: colorScale(d.avg)
-      }
-    })
+      const newBars = data.map(d => {
+        return {
+          x: xScale(d.date),
+          y: yScale(d.high),
+          height: yScale(d.low) - yScale(d.high),
+          fill: colorScale(d.avg)
+        }
+      })
 
-    setBars(newBars)
+      setBars(newBars)
+    }
 
   }, [data])
 
