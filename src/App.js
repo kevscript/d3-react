@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Chart from './Chart'
+import FunChart from './FunChart'
 
 const App = () => {
 
@@ -19,7 +20,12 @@ const App = () => {
 
   return (
     <div>
-      {data && <Chart data={data} />}
+      {data && 
+        <div>
+          <Chart data={data} />
+          <FunChart data={data} />
+        </div>
+      }
     </div>
   );
 }
