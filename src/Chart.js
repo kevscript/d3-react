@@ -16,7 +16,7 @@ class Chart extends React.Component {
   yAxis = React.createRef()
 
   renderAxis = (scaleX, scaleY) => {
-    const axisX = d3.axisBottom(scaleX)
+    const axisX = d3.axisBottom(scaleX).tickFormat(d3.timeFormat('%b'))
     const axisY = d3.axisLeft(scaleY)
     d3.select(this.xAxis.current).call(axisX)
     d3.select(this.yAxis.current).call(axisY)

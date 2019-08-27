@@ -14,7 +14,7 @@ const FunChart = ({data}) => {
   const yAxis = useRef(null)
   
   const renderAxis = (scaleX, scaleY) => {
-    const axisX = d3.axisBottom(scaleX)
+    const axisX = d3.axisBottom(scaleX).tickFormat(d3.timeFormat('%b'))
     const axisY = d3.axisLeft(scaleY)
     d3.select(xAxis.current).call(axisX)
     d3.select(yAxis.current).call(axisY)
