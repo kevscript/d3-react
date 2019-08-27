@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import Chart from './Chart'
-import FunChart from './FunChart'
+import BarChart from './BarChart'
+import FunBarChart from './FunBarChart'
+import LineChart from './LineChart'
+import FunLineChart from './FunLineChart'
 
 const initialState = {
   'amsterdam': [],
@@ -62,14 +64,28 @@ const App = () => {
       </select>
       {city && 
         <div>
-          <ChartContainer>
-            <h5>Class component Bar Chart for {`${selected}`}</h5>
-            <Chart data={data[selected]} />
-          </ChartContainer>
-          <ChartContainer>
-            <h5>Functional component Bar Chart for {`${selected}`}</h5>
-            <FunChart data={data[selected]} />
-          </ChartContainer>
+          <div>
+            <h1>Bar Charts</h1>
+            <ChartContainer>
+              <h5>Class component Bar Chart</h5>
+              <BarChart data={data[selected]} />
+            </ChartContainer>
+            <ChartContainer>
+              <h5>Functional component Bar Chart</h5>
+              <FunBarChart data={data[selected]} />
+            </ChartContainer>
+          </div>
+          <div>
+            <h1>Line Charts</h1>
+            <ChartContainer>
+              <h5>Class component Line Chart</h5>
+              <LineChart data={data[selected]} />
+            </ChartContainer>
+            <ChartContainer>
+              <h5>Functional component Line Chart</h5>
+              <FunLineChart data={data[selected]} />
+            </ChartContainer>
+          </div>
         </div>
       }
     </div>
