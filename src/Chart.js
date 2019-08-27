@@ -8,7 +8,18 @@ const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 
 class Chart extends React.Component {
   state = {
-    bars: []
+    bars: [],
+    scales: {}
+  }
+
+  xAxis = React.createRef()
+  yAxis = React.createRef()
+
+  renderAxis = (scaleX, scaleY) => {
+    const axisX = d3.axisBottom(scaleX)
+    const axisY = d3.axisLeft(scaleY)
+    d3.select(this.xAxis.current).call(axisX)
+    d3.select(this.yAxis.current).call(axisY)
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -20,14 +31,14 @@ class Chart extends React.Component {
         d3.min(data, d => d.date),
         d3.max(data, d => d.date)
       ])
-      .range([0, width])
+      .range([margin.left, width - margin.right])
 
     const yScale = d3.scaleLinear()
       .domain([
         d3.min(data, d => d.low),
         d3.max(data, d => d.high)
       ])
-      .range([height, 0])
+      .range([height - margin.bottom, margin.top])
 
     const colorExtent = d3.extent(data, d => d.avg).reverse()
     const colorScale = d3.scaleSequential().domain(colorExtent).interpolator(d3.interpolateRdYlBu)
@@ -41,17 +52,37 @@ class Chart extends React.Component {
       }
     })
 
-    return { bars }
+    const scales = {
+      xScale,
+      yScale
+    }
+
+    return { bars, scales }
   }
+
+  componentDidMount() {
+    const { scales } = this.state
+    this.renderAxis(scales.xScale, scales.yScale)
+  }
+
+  componentDidUpdate() {
+    const { scales } = this.state
+    this.renderAxis(scales.xScale, scales.yScale)
+  }
+
 
   render() {
     return (
       <svg width={width} height={height}>
-        {
-          this.state.bars.map((d, i) =>
-            <rect key={i} x={d.x} y={d.y} width={2} height={d.height} fill={d.fill} />
-          )
-        }
+        <g>
+          {
+            this.state.bars.map((d, i) =>
+              <rect key={i} x={d.x} y={d.y} width={2} height={d.height} fill={d.fill} />
+            )
+          }
+        </g>
+        <g ref={this.xAxis} transform={`translate(0, ${height - margin.bottom})`}></g>
+        <g ref={this.yAxis} transform={`translate(${margin.left}, 0)`}></g>
       </svg>
     )
   }
