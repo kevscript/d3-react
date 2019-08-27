@@ -5,10 +5,9 @@ const width = 650;
 const height = 450;
 const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 
-const FunChart = ({data}) => {
+const FunBarChart = ({data}) => {
 
   const [bars, setBars] = useState([])
-  const [scales, setScales] = useState({})
 
   const xAxis = useRef(null)
   const yAxis = useRef(null)
@@ -71,4 +70,4 @@ const FunChart = ({data}) => {
   )
 }
 
-export default FunChart
+export default FunBarChart

@@ -6,7 +6,7 @@ const width = 650;
 const height = 450;
 const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 
-class Chart extends React.Component {
+class BarChart extends React.Component {
   state = {
     bars: [],
     scales: {}
@@ -88,4 +88,4 @@ class Chart extends React.Component {
   }
 }
 
-export default Chart
+export default BarChart
