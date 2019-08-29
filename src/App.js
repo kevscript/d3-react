@@ -6,6 +6,7 @@ import BarChart from './BarChart'
 import FunBarChart from './FunBarChart'
 import LineChart from './LineChart'
 import FunLineChart from './FunLineChart'
+import ScatterPlot from './ScatterPlot'
 
 const initialState = {
   'amsterdam': [],
@@ -64,6 +65,19 @@ const App = () => {
       </select>
       {city && 
         <div>
+          <div>
+            <h1>Scatter Plot</h1>
+            <ChartContainer>
+              <ScatterPlot 
+                data={data[selected]} 
+                width={450} 
+                height={650} 
+                padding={20} 
+                xData={d => d.high} 
+                yData={d => d.date} 
+              />
+            </ChartContainer>
+          </div>
           <div>
             <h1>Bar Charts</h1>
             <ChartContainer>
